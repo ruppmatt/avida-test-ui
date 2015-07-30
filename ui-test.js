@@ -10021,6 +10021,8 @@ pop_stats = [
 var update = 0;
 var paused = true;
 
+var update_timer = null;
+
 function doUpdate(){
    update = update + 1;
    doGetPopulationStats();
@@ -10030,6 +10032,7 @@ function doGetPopulationStats(req){
    var result  = pop_stats[update];
    result.success = true;
    result.request = req;
+   result.Key='PopulationStats';
    postMessage(result);
 }
 
@@ -10047,7 +10050,7 @@ onmessage = function(e) {
             } 
             paused = true;
          }
-         var result = { 'success':true, 'requested':msg };
+         var result = { 'Key':'RunPause', 'success':true, 'requested':msg };
          postMessage(result);
          break;
       case 'Reset':
@@ -10056,11 +10059,15 @@ onmessage = function(e) {
          }
          update = 0;
          paused = true;
-         var result = { 'success':true, 'requested':msg };
+         var result = { 'Key':'Reset', 'success':true, 'requested':msg };
          postMessage(result);
          break;
       default:
-         var result = { 'success':false, 'requested':msg };
+         var result = { 
+            'Key':'UnknownRequest', 
+            'success':false, 
+            'requested':msg 
+         };
          postMessage(result);
          break;
    }
