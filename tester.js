@@ -1,11 +1,18 @@
 var uiWorker = new Worker('ui-test.js');
 
-function getStats() {
-   uiWorker.postMessage('GetPopulationStats');
+
+function doRunPause() {
+   var request = {
+      'Key':'RunPause'
+   };
+   uiWorker.postMessage(request);
 }
 
-function doPlayPause() {
-   uiWorker.postMessage('DoPlayPause');
+function doReset() {
+   var request = {
+      'Key':'Reset'
+   };
+   uiWorker.postMessage(request);
 }
 
 uiWorker.onmessage = function(e){
