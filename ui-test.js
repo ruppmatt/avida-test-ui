@@ -10019,17 +10019,14 @@ pop_stats = [
 {"core.update":1000,"core.world.ave_age":8.25431274346133,"core.world.ave_fitness":0.265187732919675,"core.world.ave_gestation_time":392.215358931553,"core.world.ave_metabolic_rate":103.259042849193,"core.world.organisms":3594} 
 ]; 
 var update = 0;
+var paused = true;
 
-var update_timer = setInterval(doUpdate, 500);
 
 function doUpdate(){
    update = update + 1;
 }
 
 function doGetPopulationStats(){
-   var cur_stats = pop_stats[update];
-   cur_stats.key="PopulationStatistics";
-   postMessage(cur_stats);
 }
 
 
@@ -10037,8 +10034,21 @@ onmessage = function(e) {
    var msg = e.data;
    switch(msg){
       case "GetPopulationStats":
-         doGetPopulationStats();
+         var cur_stats = pop_stats[update];
+         cur_stats.key="PopulationStatistics";
+         postMessage(cur_stats);
          break;
+      case 'DoPlayPause':
+         if (paused){
+            update_timer = setInterval(doUpdate, 500);
+            console.log('Starting...');
+            paused = false;
+         } else {
+            clearInterval(update_timer);
+            console.log('Pausing...');
+            paused = true;
+         }
+      break;        
    }
 }
 
