@@ -6,7 +6,7 @@ function doUpdate(){
    update = update + 1;
 }
 
-function doPopulationStats(){
+function doGetPopulationStats(){
    var cur_stats = pop_stats[update];
    cur_stats.key="PopulationStatistics";
    postMessage(cur_stats);
