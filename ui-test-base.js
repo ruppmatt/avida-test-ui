@@ -44,9 +44,9 @@ onmessage = function(e) {
          break;
       case 'OrgTrace':
          var result = snapshots;
-         results.Success = true;
-         results.Requested = msg;
-         results.Key = 'OrgTrace';
+         result.Success = true;
+         result.Requested = msg;
+         result.Key = 'OrgTrace';
          postMessage(result);
          break;
       case 'PopulationStats':
