@@ -22,7 +22,7 @@ onmessage = function(e) {
    switch(msg.Key){
       case 'RunPause':
          if (paused){
-            update_timer = setInterval(doUpdate, 500);
+            update_timer = setInterval(doUpdate, 100);
             paused = false;
          } else {
             if (update_timer){
